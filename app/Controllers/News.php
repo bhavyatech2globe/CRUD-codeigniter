@@ -9,6 +9,8 @@ class News extends BaseController
 {
     public function index()
     {
+        helper('form');
+
         $model = model(NewsModel::class);
         $data = [
             'news' => $model->getNews(),
@@ -17,10 +19,21 @@ class News extends BaseController
 
 
         return view('templates/header', $data)
-            . view('news/index')
+            . view('news/index', $data)
             . view('templates/footer');
     }
 
+    public function fetch()
+    {
+        $model = model(NewsModel::class);
+        $data = $model->getNews();
+        return view('news/index', $data);
+    }
+
+    public function add() {
+
+    }
+    
     public function view($slug = false)
     {
         $model = model(NewsModel::class);
@@ -95,14 +108,14 @@ class News extends BaseController
         $model = model(NewsModel::class);
         $data = [
             'title' => 'Update the news item',
-            'news' => $model->where(['id'=>$id])->first()
+            'news' => $model->where(['id' => $id])->first()
         ];
         // var_dump($data); die;
         if (!$this->request->is('post')) {
             // The form is not submitted, so returns the form.
             return view('templates/header', $data)
-            . view('news/update')
-            . view('templates/footer');
+                . view('news/update')
+                . view('templates/footer');
         }
         $post = $this->request->getPost(['id', 'title', 'body']);
         // Checks whether the submitted data passed the validation rules.

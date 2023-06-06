@@ -37,7 +37,9 @@ $routes->match(['get', 'post'], 'news/update/(:num)', [News::class, 'update']);
 $routes->post('news/update', [News::class, 'update']);
 
 $routes->get('news/delete/(:num)', [News::class,'delete'] );
-$routes->match(['get', 'post'], 'news/create', [News::class, 'create']);
+// $routes->match(['get', 'post'], 'news/create', [News::class, 'create']);
+$routes->match(['get', 'post'], 'news/create', [News::class, 'add']);
+
 $routes->get('news/(:segment)',[News::class,'view']);
 $routes->get('news',[News::class,'index']);
 $routes->get('pages',[Pages::class,'index']);
